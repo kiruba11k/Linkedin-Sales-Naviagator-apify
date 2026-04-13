@@ -6,6 +6,6 @@
   "buildTag": "latest",
   "minMemoryMbytes": 512,
   "maxMemoryMbytes": 2048,
-  "readme": "./README.md",
-  "input": "./.actor/input_schema.json"
+  "readme": "../README.md",
+  "input": "./input_schema.json"
 }
