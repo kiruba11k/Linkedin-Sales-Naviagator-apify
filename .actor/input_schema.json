@@ -1,0 +1,65 @@
+{
+  "title": "LinkedIn SalesNav  Scraper",
+  "description": "Paste your Sales Navigator company/account search URL. The actor decodes ALL your filters (headcount, industry, region, annual revenue, company type, growth rate, technologies, fortune ranking, followers, spotlight, department headcount, and more), rebuilds an equivalent query on LinkedIn's public search endpoint, scrapes every matching company page, and outputs rich structured data — zero login or cookies required.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "salesNavUrl": {
+      "title": "Sales Navigator Search URL",
+      "type": "string",
+      "description": "Your full Sales Navigator account/company search URL. Go to Sales Navigator → Accounts → apply your filters → copy the URL from the address bar and paste it here.\n\nExample: https://www.linkedin.com/sales/search/company?query=(filters:List((type:COMPANY_HEADCOUNT,values:List((id:D,text:51-200,selectionType:INCLUDED))),(type:INDUSTRY,values:List((id:4,text:Software+Development,selectionType:INCLUDED))),(type:ANNUAL_REVENUE,rangeValue:(min:1,max:50),selectedSubFilter:1)))&sessionId=abc123==",
+      "editor": "textfield",
+      "prefill": "https://www.linkedin.com/sales/search/company?query=(filters:List((type:COMPANY_HEADCOUNT,values:List((id:D,text:51-200,selectionType:INCLUDED))),(type:INDUSTRY,values:List((id:4,text:Software+Development,selectionType:INCLUDED)))))&sessionId=PASTE_YOUR_URL_HERE"
+    },
+    "keywordsOverride": {
+      "title": "Keywords override (optional)",
+      "type": "string",
+      "description": "Override or add keywords for the public LinkedIn search. Leave blank to use keywords decoded from your Sales Nav URL, or industry names as fallback.",
+      "editor": "textfield"
+    },
+    "maxCompanies": {
+      "title": "Max companies to scrape",
+      "type": "integer",
+      "description": "Maximum number of company profiles to collect and scrape. Each company costs ~1 HTTP request. Free Apify tier comfortably handles 50–200 per run.",
+      "default": 50,
+      "minimum": 1,
+      "maximum": 500
+    },
+    "maxSearchPages": {
+      "title": "Max public search pages per filter combo",
+      "type": "integer",
+      "description": "LinkedIn public search returns 10 results per page. If you have multiple industries × headcount sizes, each combination is searched independently for this many pages.",
+      "default": 5,
+      "minimum": 1,
+      "maximum": 40
+    },
+    "requestDelayMs": {
+      "title": "Base delay between requests (ms)",
+      "type": "integer",
+      "description": "Milliseconds to wait between requests (jitter of up to +2500ms is added automatically). Lower = faster but higher risk of being blocked. Recommended: 3000–5000ms.",
+      "default": 3500,
+      "minimum": 1000,
+      "maximum": 15000
+    },
+    "deepScrape": {
+      "title": "Deep scrape each company page",
+      "type": "boolean",
+      "description": "If true (recommended), visits each company's /about/ page to extract full details: description, specialties, founded year, employee count, website, headquarters, industry, etc. If false, only saves the company LinkedIn URL found in search results.",
+      "default": true
+    },
+    "useApifyProxy": {
+      "title": "Use Apify Proxy",
+      "type": "boolean",
+      "description": "Route requests through Apify's proxy pool to avoid IP blocks from LinkedIn. Strongly recommended. The actor tries RESIDENTIAL proxies first, then falls back to DATACENTER proxies on the free tier.",
+      "default": true
+    },
+    "proxyCountryCode": {
+      "title": "Proxy country code",
+      "type": "string",
+      "description": "ISO 2-letter country code for proxy geo-targeting. 'US' gives the broadest LinkedIn coverage. Use 'IN' for India-focused searches, 'GB' for UK, etc.",
+      "default": "US",
+      "editor": "textfield"
+    }
+  },
+  "required": ["salesNavUrl"]
+}
