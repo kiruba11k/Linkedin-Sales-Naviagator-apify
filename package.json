@@ -1,0 +1,20 @@
+{
+  "name": "linkedin-salenav-company-scraper",
+  "version": "1.0.0",
+  "description": "Decodes ALL LinkedIn Sales Navigator filter types and scrapes matching companies from public LinkedIn pages. No login or cookies required.",
+  "main": "src/main.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.js",
+    "lint":  "eslint src/"
+  },
+  "dependencies": {
+    "apify":        "^3.2.2",
+    "crawlee":      "^3.10.0",
+    "cheerio":      "^1.0.0-rc.12",
+    "got-scraping": "^4.0.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
